@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Angular JS - HTTP</title>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="app.js"></script>
+<style>
+  body{
+    font:12px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  button{
+    cursor:pointer;
+  }
+  button:disabled{
+    cursor:default;
+  }
+  label {
+    float: left;
+    font-weight: bold;
+    margin-top: -1px;
+    padding: 4px;
+    width: 50px;
+  }
+</style>
+</head>
+<body data-ng-app="1Q">
+  <div data-ng-controller="1QCtrl">
+    <fieldset ng-form name="WorldForm">
+      <legend>World</legend>
+      <span><label for="country">Country </label><input type="text" data-ng-model="country" name="country" required></span>
+      <br/><br/>
+      <span><label for="city">City </label><input type="text" data-ng-model="city" name="city" required data-ng-keyup="$event.keyCode==13?addToWorld():null"></span><br/><br/>
+      <button data-ng-click="addToWorld();" ng-disabled="WorldForm.country.$invalid || WorldForm.city.$invalid">Add To World</button>
+    </fieldset>
+    <section>
+      <article data-ng-repeat="i in countryArray">
+        <h1>{{i}}</h1>
+        <ul>
+          <li data-ng-repeat="j in cityArray | filter : {cID:countryArray.indexOf(i)}">{{j.name}}</li>
+        </ul>
+      </article>
+    </section>
+  </div>
+</body>
+</html>
